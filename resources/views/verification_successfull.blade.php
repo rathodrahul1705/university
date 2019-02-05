@@ -1,0 +1,1 @@
+<h1 class="text-success">Verification Successfull.</h1>
