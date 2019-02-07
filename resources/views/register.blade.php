@@ -98,7 +98,9 @@
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-info">Submit</button>
       </div>
-    </div> 
+    </div>
+  </form>
+
     <script>
       $(function() {
         $('#register_form').on('submit', function(e) {

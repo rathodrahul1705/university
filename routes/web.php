@@ -43,3 +43,5 @@ Route::post('/student_category','details_save@student_category');
 Route::post('/payment_details','details_save@payment_details');
 Route::get('/forgot_password','details_save@forgot_password');
 Route::post('/forgot_password_save','details_save@forgot_password_save');
+// Route::get('/mail','details_save@mail');
+Route::post('/send','details_save@mail');

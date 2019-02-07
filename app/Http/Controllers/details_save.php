@@ -15,21 +15,7 @@ use DB;
 
 class details_save extends Controller
 {
-    public function registration_details_save (Request $request) {
-
-        $title="Student Registration";
-        $message = "Registration is successful.";
-        $email = $request->email;
-        // $string=$data->verification_string;
-
-        $message_data = ["message" => $message, "email"=>$email];
-
-        // // dd($request->email);
-        Mail::send('mail_registration', ['title' => $title, 'message_data' => $message_data], function ($message) use($message_data)
-         {
-            $message->from('rathodrahul1705@gmail.com');
-            $message->to($message_data['email']);
-        });
+    public function registration_details_save(Request $request) {
 
         $this->validate($request,[
             'name'=> 'required|regex:/^[a-zA-Z ]+$/',
@@ -41,6 +27,7 @@ class details_save extends Controller
             'password'=> 'required|min:6',
             'c_password'=> 'required|same:password|min:6',
         ]);
+
         $student_registration_data =StudentRegistration::all();
         for($i=0;$i<count($student_registration_data);$i++) {
 
@@ -58,6 +45,18 @@ class details_save extends Controller
             }
         }
 
+        $title="Student Registration";
+        $message = "Registration is successful.";
+        $email = $request->email;
+
+        $message_data = ["message" => $message, "email"=>$email];
+        Mail::send('mail_registration', ['title' => $title, 'message_data' => $message_data], function ($message) use($message_data)
+         {
+            $message->from('rathodrahul1705@gmail.com');
+            $message->to($message_data['email'])->subject('Verification of University of Mumbai');
+        });
+
+
         $data = new StudentRegistration();
 
     	$data->name = $request->name;
@@ -71,25 +70,10 @@ class details_save extends Controller
     	$data->c_password = $request->c_password;
     	$data->save();
         
-        // Mail::send('mail_registration',['name'=>'Rahul Rathod'], function($message) {
-        //     $message->to('dipakrathod258@gmail.com')->subject('Welcome to Mumbai');
-        //     $message->from('rahulrathod1705@gmail.com');
-        // });
-
-        // $data->verification_string = md5(microtime());
-
-
-        //  Mail::send('mail_registration', ['name'=>'Dipak Rathod'], function($message) {
-        //     $message->to('rathodrahul1705@gmail.com')->subject('Test Mail');
-        //     $message->from('rathodrahul1705@gmail.com');
-        // }); 
-
-
-
-
     	return redirect('/')->with('success','Registered Successfully!');
     }
-         public function register() {
+
+    public function register() {
     	return view('register');   
     }
     public function login_page(){
