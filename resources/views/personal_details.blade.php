@@ -255,13 +255,13 @@
 				      <div class="modal-content">
 				        <div class="modal-header">
 				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title">Modal Header</h4>
+				          <h4 class="modal-title">Academic details</h4>
 				        </div>
 				        <div class="modal-body">
-				          <p>Some text in the modal.</p>
+				          <p>Academic details save</p>
 				        </div>
 				        <div class="modal-footer">
-				          <button type="button" class="btn btn-info go_to_next" data-dismiss="modal">Close</button>
+				          <button type="button" class="btn btn-success go_to_next" data-dismiss="modal">Go Next</button>
 				        </div>
 				      </div>
 				      
@@ -381,13 +381,13 @@
 				      <div class="modal-content">
 				        <div class="modal-header">
 				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title">Modal Header</h4>
+				          <h4 class="modal-title">Student Categiry</h4>
 				        </div>
 				        <div class="modal-body">
-				          <p>Some text in the modal.</p>
+				          <p>Category Details Save</p>
 				        </div>
 				        <div class="modal-footer">
-				          <button type="button" class="btn btn-info go_to_next_step" data-dismiss="modal">Close</button>
+				          <button type="button" class="btn btn-success go_to_next_step" data-dismiss="modal">Go Next</button>
 				        </div>
 				      </div>
 				      

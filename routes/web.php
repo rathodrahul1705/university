@@ -45,3 +45,5 @@ Route::get('/forgot_password','details_save@forgot_password');
 Route::post('/forgot_password_save','details_save@forgot_password_save');
 // Route::get('/mail','details_save@mail');
 Route::post('/send','details_save@mail');
+
+Route::get('/verify_mail/{string}', 'details_save@verify_mail');

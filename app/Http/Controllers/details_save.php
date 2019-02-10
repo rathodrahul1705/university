@@ -29,48 +29,56 @@ class details_save extends Controller
         ]);
 
         $student_registration_data =StudentRegistration::all();
+        $warnings = [];
         for($i=0;$i<count($student_registration_data);$i++) {
 
-             if($request->mobile == $student_registration_data[$i]->mobile){
-                return redirect('/register')->with('already_exists_mobile','mobile allready exist!');
-             }
+            $warnings[0] = ($request->mobile == $student_registration_data[$i]->mobile)?'Mobile no. already exists!':'';
+            $warnings[1] = ($request->email == $student_registration_data[$i]->email)?'Email already exists!':'';
         }
 
-        $student_registration_data =StudentRegistration::all();
-    	// dd($data);
-
-        for ($i=0; $i < count($student_registration_data); $i++) { 
-            if($request->email == $student_registration_data[$i]->email) {
-                return redirect('/register')->with('already_exists_error', 'Email already exists!');
+          $count=0;
+          for($i=0;$i<count($warnings);$i++) {
+            if($warnings[$i]!='') {
+              $count++;
             }
+          }
+
+
+        if($count == 0) {
+            $verification_string = md5(microtime());
+            $data = new StudentRegistration();
+
+            $data->name = $request->name;
+            $data->name1 = $request->name1;
+            $data->dob = $request->dob;
+            $data->gender = $request->gender;
+            $data->mobile = $request->mobile;
+            $data->confirm_mobile = $request->confirm_mobile;
+            $data->email = $request->email;
+            $data->password = $request->password;
+            $data->c_password = $request->c_password;
+            $data->verification_string = $verification_string;
+
+
+            $title="Student Registration";
+            $message = "Registration is successful.";
+            $email = $request->email;
+
+            $message_data = ["message" => $message, "email"=>$email];
+            Mail::send('mail_registration', ['title' => $title, 'message_data' => $message_data, 'verification_string'=> $verification_string], function ($message) use($message_data)
+             {
+                $message->from('rathodrahul1705@gmail.com');
+                $message->to($message_data['email'])->subject('Verification of University of Mumbai');
+            });
+
+
+            $data->save();
         }
-
-        $title="Student Registration";
-        $message = "Registration is successful.";
-        $email = $request->email;
-
-        $message_data = ["message" => $message, "email"=>$email];
-        Mail::send('mail_registration', ['title' => $title, 'message_data' => $message_data], function ($message) use($message_data)
-         {
-            $message->from('rathodrahul1705@gmail.com');
-            $message->to($message_data['email'])->subject('Verification of University of Mumbai');
-        });
-
-
-        $data = new StudentRegistration();
-
-    	$data->name = $request->name;
-    	$data->name1 = $request->name1;
-    	$data->dob = $request->dob;
-    	$data->gender = $request->gender;
-    	$data->mobile = $request->mobile;
-    	$data->confirm_mobile = $request->confirm_mobile;
-    	$data->email = $request->email;
-    	$data->password = $request->password;
-    	$data->c_password = $request->c_password;
-    	$data->save();
+        else {
+            return $warnings;
+        }
         
-    	return redirect('/')->with('success','Registered Successfully!');
+        // return redirect('/')->with('success','Registered Successfully!');
     }
 
     public function register() {
@@ -272,5 +280,16 @@ class details_save extends Controller
 
 
         return redirect('/')->with('forgot_password_success', 'Password Changed Successfully!Please login.');
+    }
+
+    public function verify_mail($verification_string) {
+        // dd($verification_string);
+        $data = StudentRegistration::where('verification_string', $verification_string)->first();
+        // dd($data);
+        if($data!=NULL || $data!='') {
+            $data->verification_string = NULL;
+            $data->update();
+        }
+        return view('verification_mail');
     }
   }
