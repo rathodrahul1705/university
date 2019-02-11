@@ -44,6 +44,13 @@ Route::post('/payment_details','details_save@payment_details');
 Route::get('/forgot_password','details_save@forgot_password');
 Route::post('/forgot_password_save','details_save@forgot_password_save');
 // Route::get('/mail','details_save@mail');
-Route::post('/send','details_save@mail');
+// Route::post('/send','details_save@mail');
 
 Route::get('/verify_mail/{string}', 'details_save@verify_mail');
+
+// Route::get('/getDownload', 'details_save@getDownload');
+Route::get('/pdf', function() {
+	return view('pdf');
+});
+
+Route::get('/func_pdf', 'details_save@func_pdf');

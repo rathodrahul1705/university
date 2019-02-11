@@ -33,9 +33,10 @@
 			<div class="row">
 				<ul class="nav nav-tabs">
 				  <li id="personal_details_id" class="active"><a data-toggle="tab" href="#personal_details">Student Personal Details</a></li>
-				  <li class="disabled"><a data-toggle="tab" href="#academic_details">Student Academic Details</a></li>
-				  <li class="disabled"><a data-toggle="tab" href="#category_details">Student Category Details</a></li>
-				  <li class="disabled"><a data-toggle="tab" href="#payment_details">Student Payment Details</a></li>
+				  <li class=""><a data-toggle="tab" href="#academic_details">Student Academic Details</a></li>
+				  <li class=""><a data-toggle="tab" href="#category_details">Student Category Details</a></li>
+				  <li class=""><a data-toggle="tab" href="#payment_details">Student Payment Details</a></li>
+				  <li class=""><a data-toggle="tab" href="#admission_success">admission Success</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -51,7 +52,7 @@
 					  </div>
 					  <div class="form-group ">
 					    <label for="pwd">Mobile:</label>
-					    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="enter mobile number">
+					    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="enter mobile number" maxlength="10">
 					  </div>
 					   <div class="form-group">
 					    <label for="pwd">email:</label>
@@ -462,7 +463,6 @@
 		    </form>
 		  </div>
 		</div>
-
 	<script>
       		$(function() {
         	$('#payment_details_form').on('submit', function(e) {
@@ -495,5 +495,38 @@
         })
       })
     </script>
+
+	<div id="admission_success" class="tab-pane fade">
+	  	<div class="row col-sm-4 col-sm-offset-0">
+	  		<table class="table table-bordered table-hover table-striped">
+	  			<thead>
+	  				<tr>
+	  					<th>SR. NO.</th>
+	  					<th>Student Name</th>
+	  					<th>Application Number</th>
+	  					<th>Stream</th>
+	  					<th>Action</th>
+	  				</tr>
+	  			</thead>
+	  			<tbody>
+	  				<tr>
+	  					<td>1.</td>
+	  					<td>Dipak Rathod</td>
+	  					<td>E0288782019M</td>
+	  					<td>BSC CS</td>
+	  					<td>
+	  						<a href="#">
+	  							<i class="fa fa-edit"></i>
+	  						</a>
+	  						<a href="{{ url('/getDownload') }}">
+	  							<i class="fa fa-file-pdf-o"></i>
+	  						</a>
+	  					</td>
+	  				</tr>
+	  			</tbody>
+	  		</table>
+		</div>
+	</div>
+
 </body>
 </html>

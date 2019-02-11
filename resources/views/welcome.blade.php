@@ -1,4 +1,16 @@
  @include('inc.navbar')
+<!--  <style type="text/css">
+   .border{
+    border:1px solid black;
+    padding: 90px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-image: url(assets/imgs/university.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+ </style>
+ --> <div class="border">
   <div class="container">
     <center><h2>Student Login details</h2></center>
 
@@ -50,6 +62,7 @@
         <a href="{{ url('/forgot_password') }}">Forgot password?</a>
     </div>  
 </form>
+</div>
 
 </body>
 </html>

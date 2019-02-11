@@ -12,6 +12,7 @@ use App\payment_details;
 use Mail;
 use Response;
 use DB;
+use PDF;
 
 class details_save extends Controller
 {
@@ -156,13 +157,15 @@ class details_save extends Controller
         $obj =DB::table('student_registrations')->where('email', $email)->first();
         
         // dd($obj->email);
+            for($i=0;$i<count($data);$i++) {
+                if($data[$i]->verification_string==NULL || $data[$i]->verification_string== '') {
 
-        for($i=0;$i<count($data);$i++) {
-            if($data[$i]->email == $request->email && $data[$i]->password == $request->password ){
-                return redirect('/personal_details');
-                // return redirect('/personal_details')->with('success','login Successfully!');
-            }
-        } 
+                    if($data[$i]->email == $request->email && $data[$i]->password == $request->password ){
+                        return redirect('/personal_details');
+                        // return redirect('/personal_details')->with('success','login Successfully!');
+                    }
+            } 
+        }
         return redirect('/login_page')->with('error','Invalid Credentials!');
     }   
     public function personal_details(){
@@ -292,4 +295,28 @@ class details_save extends Controller
         }
         return view('verification_mail');
     }
+
+public function getDownload() {
+        // dd(public_path());
+
+        //PDF file is stored under project/public/download/info.pdf
+        // $file= public_path(). "/download/info.pdf";
+
+        // $headers = array(
+        //           'Content-Type: application/pdf',
+        //         );
+
+        $pdf = PDF::loadView('pdf');
+        return $pdf->download('pdf.pdf');
+        // return Response::download($file, 'rahul.pdf', $headers);
+    }
+
+public function func_pdf() {
+        $personal_details = personal_details::all();
+        $pdf = PDF::loadView('pdf', compact('personal_details'));
+        return $pdf->download('pdf.pdf');
+
+}
+
+
   }
