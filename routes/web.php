@@ -47,10 +47,13 @@ Route::post('/forgot_password_save','details_save@forgot_password_save');
 // Route::post('/send','details_save@mail');
 
 Route::get('/verify_mail/{string}', 'details_save@verify_mail');
-
-// Route::get('/getDownload', 'details_save@getDownload');
 Route::get('/pdf', function() {
 	return view('pdf');
 });
 
-Route::get('/func_pdf', 'details_save@func_pdf');
+// // Route::get('/func_pdf', 'details_save@func_pdf');
+// Route::get('/import_data','details_save@import_data');
+// // Route::get('/pdf','CustomerController@export_pdf');
+// Route::get('/pdf','details_save@export_pdf');
+Route::get('/import_data','details_save@import_data');
+Route::get('/pdf','details_save@export_pdf');

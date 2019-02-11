@@ -296,27 +296,16 @@ class details_save extends Controller
         return view('verification_mail');
     }
 
-public function getDownload() {
-        // dd(public_path());
-
-        //PDF file is stored under project/public/download/info.pdf
-        // $file= public_path(). "/download/info.pdf";
-
-        // $headers = array(
-        //           'Content-Type: application/pdf',
-        //         );
-
-        $pdf = PDF::loadView('pdf');
-        return $pdf->download('pdf.pdf');
-        // return Response::download($file, 'rahul.pdf', $headers);
+    public function import_data(){
+        $data = personal_details::all();
+        return view('/customer', compact('data'));
     }
+    public function export_pdf(){
+        $data = personal_details::all();
+        $pdf = PDF::loadView('customer', compact('data'));
+        return $pdf->download('addmission.pdf');
 
-public function func_pdf() {
-        $personal_details = personal_details::all();
-        $pdf = PDF::loadView('pdf', compact('personal_details'));
-        return $pdf->download('pdf.pdf');
-
-}
+    }
 
 
   }

@@ -518,7 +518,7 @@
 	  						<a href="#">
 	  							<i class="fa fa-edit"></i>
 	  						</a>
-	  						<a href="{{ url('/getDownload') }}">
+	  						<a href="{{ url('/pdf') }}">
 	  							<i class="fa fa-file-pdf-o"></i>
 	  						</a>
 	  					</td>
