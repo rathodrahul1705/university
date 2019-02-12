@@ -1,65 +1,55 @@
-<!-- <a href="{{ url('/func_pdf') }}">Download pdf</a>
-<table>
-	<thead>
-		<tr>
-			<th>rahul</th>
-			<th>rahul</th>
-			<th>rahul</th>
-			<th>rahul</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>rahul</td>
-			<td>rahul</td>
-			<td>rahul</td>
-			<td>rahul</td>
-		</tr>
-	</tbody>
-</table> -->
+<link rel="stylesheet" href="{{ url('/assets/css/bootstrap.min.css') }}">
 
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3">
+			<img src="{{ url('/assets/imgs/personal_details/download.png') }}" width="130" height="130">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><b>Application ID:</b>&nbsp;APE305MM2019</span>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p><span><b>Academic Year:</b> 2019-2020</span></p>
+		</div>
+	</div>
 
-
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>pdf</title>
-</head>
-<body>
-	<h1>personal Details</h1>
-<a href="{{url('/pdf')}}">Export PDF</a>
-<table>
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>name</th>
-      <th>mobile</th>
-      <th>address</th>
-      <th>email</th>
-      <th>student_photo</th>
-      <th>student_signature</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($data as $customer)
-      <tr>
-        <td>{{ $customer->id }}</td>
-        <td>{{ $customer->name }}</td>
-        <td>{{ $customer->mobile }}</td>
-        <td>{{ $customer->address }}</td>
-        <td>{{ $customer->email }}</td>
-        <td>{{ $customer->student_photo }}</td>
-        <td>{{ $customer->student_signature }}</td>
-      </tr>
-    @endforeach
-  </tbody>
-</table>
-</body>
-</html>
-
-
-
-
-
-
+	<div class="row">
+		<h4><b>Student Personal Details:</b></h4>
+		<table class="table table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Address</th>
+					<th>Mobile</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{$data->name}}</td>
+					<td>{{$data->address}}</td>
+					<td>{{$data->mobile}}</td>
+					<td>{{$data->email}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<h4><b>Student Academic Details:</b></h4>
+		<table class="table table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th>College Name</th>
+					<th>Academic Year</th>
+					<th>Course</th>
+					<th>Percentage</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{$data1->college_name}}</td>
+					<td>{{$data1->course_year}}</td>
+					<td>{{$data1->sub_course}}</td>
+					<td>{{$data1->percentage}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

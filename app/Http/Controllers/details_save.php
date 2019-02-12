@@ -177,12 +177,18 @@ class details_save extends Controller
         'name'=> 'required|regex:/^[a-zA-Z ]+$/',
         'mobile'=> 'required|numeric|digits:10',
         'email'=> 'required|email',
-        'address'=> 'required|max:50',
+        'address'=> 'required|max:100',
         'student_photo'=> 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
         'student_signature'=> 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
 
-        // dd($errors);
+        // dd($request->student_photo);
+        if($file = $request->hasFile('student_photo')) {
+          $file = $request->file('student_photo');
+          $student_photo_file_name = $file->getClientOriginalName();
+          $destinationPath = public_path().'/assets/imgs/personal_details';
+          $file->move($destinationPath,$student_photo_file_name);
+        }
 
 
     	$data = new personal_details();
@@ -297,12 +303,21 @@ class details_save extends Controller
     }
 
     public function import_data(){
-        $data = personal_details::all();
+        $id =69;
+        $data = DB::table('personal_details')->where('id', $id)->first();
+        dd($data);
         return view('/customer', compact('data'));
     }
     public function export_pdf(){
-        $data = personal_details::all();
-        $pdf = PDF::loadView('customer', compact('data'));
+        // $data = personal_details::all();
+        // $data = academic_details::all();
+        // $dompdf->set_base_path("");
+        $id =155;
+        $id1 =10;
+        $data = DB::table('personal_details')->where('id', $id)->first();
+        $data1 = DB::table('academic_details')->where('id', $id1)->first();
+        // dd($data->id);
+        $pdf = PDF::loadView('customer', compact('data','data1'));
         return $pdf->download('addmission.pdf');
 
     }

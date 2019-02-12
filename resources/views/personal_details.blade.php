@@ -209,31 +209,31 @@
 						      </div>
 						    </div>
 						     <div class="form-group">
-	    						<input type="text" class="form-control" placeholder="marathi" name="marathi">
+	    						<input type="text" class="form-control" placeholder="marathi" name="marathi" maxlength="3">
 	 						 </div>
 					 		<div class="form-group" style="margin-top: 15px;">
 						      <div class="col-sm-4">
-						      	<input type="text" class="form-control"  placeholder="english" name="english">
+						      	<input type="text" class="form-control"  placeholder="english" name="english" maxlength="3">
 						      </div>
 						  	</div>
 				 			<div class="form-group" style="margin-top: 15px;">
 						      <div class="col-sm-4">
-						      	<input type="text" class="form-control"  placeholder="biology" name="biology">
+						      	<input type="text" class="form-control"  placeholder="biology" name="biology" maxlength="3">
 						      </div>
 						  	</div>
 				 			<div class="form-group" style="margin-top: 15px;">
 						      <div class="col-sm-4">
-						      	<input type="text" class="form-control"  placeholder="chemestry" name="chemestry">
+						      	<input type="text" class="form-control"  placeholder="chemestry" name="chemestry" maxlength="3">
 						      </div>
 						  	</div>
 				 			<div class="form-group" style="margin-top: 15px;">
 						      <div class="col-sm-4">
-						      	<input type="text" class="form-control"  placeholder="mathematics" name="mathematics">
+						      	<input type="text" class="form-control"  placeholder="mathematics" name="mathematics" maxlength="3">
 						      </div>
 						  	</div>
 				 			<div class="form-group" style="margin-top: 15px;">
 						      <div class="col-sm-4">
-						      	<input type="text" class="form-control"  placeholder="percentage(%)" name="percentage">
+						      	<input type="text" class="form-control"  placeholder="percentage(%)" name="percentage" maxlength="3">
 						      </div>
 						  	</div>
 					      <div class="form-group" style="margin-top: 25px;">
@@ -456,7 +456,7 @@
 
 				  <div class="form-group">
 				    <label>Enter Amount:</label>
-				    <input type="number" class="form-control" name="Amount">
+				    <input type="text" class="form-control" name="Amount" maxlength="5">
 				  </div>
 				  <button type="submit" class="btn btn-success">payment</button>
 				</form>
