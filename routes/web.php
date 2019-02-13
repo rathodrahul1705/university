@@ -47,6 +47,7 @@ Route::post('/forgot_password_save','details_save@forgot_password_save');
 // Route::post('/send','details_save@mail');
 
 Route::get('/verify_mail/{string}', 'details_save@verify_mail');
+Route::get('/confirm_forgot_password/{string}','details_save@confirm_forgot_password');
 Route::get('/pdf', function() {
 	return view('pdf');
 });
