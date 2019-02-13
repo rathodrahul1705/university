@@ -48,19 +48,19 @@
 						 <!-- {{csrf_field()}} -->
 						   <div class="form-group">
 					    <label for="email">Name:</label>
-					    <input type="text" class="form-control" id="name" placeholder="enter name" name="name">	
+					    <input type="text" class="form-control" id="name" placeholder="enter name" name="name" value="{{ $personal_detail->name }}">	
 					  </div>
 					  <div class="form-group ">
 					    <label for="pwd">Mobile:</label>
-					    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="enter mobile number" maxlength="10">
+					    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="enter mobile number" maxlength="10" value="{{ $personal_detail->mobile }}">
 					  </div>
 					   <div class="form-group">
 					    <label for="pwd">email:</label>
-					    <input type="email" class="form-control" id="email" name="email" placeholder="enter email">
+					    <input type="email" class="form-control" id="email" name="email" placeholder="enter email" value="{{ $personal_detail->email }}">
 					  </div>
 					    <div class="form-group">
 					      <label >address:</label>
-							<textarea class="form-control" rows="5" name="address" placeholder="enter address"></textarea>
+							<textarea class="form-control" rows="5" name="address" placeholder="enter address">{{ $personal_detail->Address }}</textarea>
 						</div>
 						<div>
 						<label>choose your photograph:</label>

@@ -24,6 +24,7 @@ class details_save extends Controller
             'dob'=> 'required|date',
             'gender'=> 'required',
             'mobile'=> 'required|numeric|digits:10',
+            'address'=> 'required',
             'email'=> 'required|email',
             'password'=> 'required|min:6',
             'c_password'=> 'required|same:password|min:6',
@@ -55,6 +56,7 @@ class details_save extends Controller
             $data->gender = $request->gender;
             $data->mobile = $request->mobile;
             $data->confirm_mobile = $request->confirm_mobile;
+            $data->address = $request->address;
             $data->email = $request->email;
             $data->password = $request->password;
             $data->c_password = $request->c_password;
@@ -71,8 +73,6 @@ class details_save extends Controller
                 $message->from('rathodrahul1705@gmail.com');
                 $message->to($message_data['email'])->subject('Verification of University of Mumbai');
             });
-
-
             $data->save();
         }
         else {
@@ -146,27 +146,40 @@ class details_save extends Controller
         // dd($request->all());
         $email = $request->email;
 
-        $this->validate($request,[
-            'email'=>'required|email',
+        if(is_numeric($request->username)) {
+            $this->validate($request,[
+            'username'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|size:10',
             'password'=>'required|min:6'
-
-        ]);
-
-        $data = StudentRegistration::all();
-        // $object = 
-        $obj =DB::table('student_registrations')->where('email', $email)->first();
-        
-        // dd($obj->email);
-            for($i=0;$i<count($data);$i++) {
-                if($data[$i]->verification_string==NULL || $data[$i]->verification_string== '') {
-
-                    if($data[$i]->email == $request->email && $data[$i]->password == $request->password ){
-                        return redirect('/personal_details');
-                        // return redirect('/personal_details')->with('success','login Successfully!');
-                    }
-            } 
+            ]);
         }
-        return redirect('/login_page')->with('error','Invalid Credentials!');
+        else {
+            $this->validate($request,[
+            'username'=>'required|email',
+            'password'=>'required|min:6'
+            ]);
+        }
+        $id = DB::table('student_registrations')->where('email', $request->username)->where('password', $request->password)->where('verification_string', NULL)->value('id');
+
+        $data = StudentRegistration::find($id);
+        // dd($data);
+        // for($i=0;$i<count($data);$i++) {
+        //     if($data[$i]->verification_string==NULL || $data[$i]->verification_string== '') {
+        //         if($data[$i]->email == $request->username || $data[$i]->mobile == $request->username){
+        //             if($data[$i]->password == $request->password ) {
+        //             }
+        //         }
+        //     } 
+        // }
+
+        if($data != NULL) {
+
+        return view("personal_details", ["personal_detail"=>$data]);
+        }   
+        else {
+
+            return redirect('/login_page')->with('error','Invalid Credentials!');
+        }      
+
     }   
     public function personal_details(){
     	return view('personal_details');
@@ -191,6 +204,8 @@ class details_save extends Controller
         }
 
 
+
+
     	$data = new personal_details();
     	$data->name = $request->name;
     	$data->mobile = $request->mobile;
@@ -199,7 +214,7 @@ class details_save extends Controller
     	$data->student_photo = $request->student_photo;
     	$data->student_signature = $request->student_signature;
     	$data->save();
-        return redirect('/personal_details');
+        return redirect('/personal_detsails');
         // return redirect('/personal_details')->with('success','Personal details saved successfully!');
     }
     public function academic_details(Request $request) {

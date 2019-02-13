@@ -44,9 +44,9 @@
   <form class="form-horizontal" action="{{ url('/login_save') }}" method="post">
     {{csrf_field()}}
      <div class="form-group">
-        <label class="control-label col-sm-4" for="email">Email &nbsp;<span class="asterik">*</span> :</label>
+        <label class="control-label col-sm-4" for="email">Email or Mobile &nbsp;<span class="asterik">*</span> :</label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+        <input type="text" class="form-control" id="email" placeholder="Enter your email or mobile no." name="username">
       </div>
     </div>
     <div class="form-group">
