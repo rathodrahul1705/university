@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<h1>Welcome to University of Mumbai</h1>
+			<h1>Welcome to CADMI</h1>
 		</div>
 		<div class="row">
 			<p>We are happy that you are interested in admission to our lovely University of Mumbai.</p>

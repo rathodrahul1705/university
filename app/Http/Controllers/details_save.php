@@ -236,6 +236,13 @@ class details_save extends Controller
           $file->move($destinationPath,$student_photo_file_name);
         }
 
+        if($file = $request->hasFile('student_signature')) {
+          $file = $request->file('student_signature');
+          $student_photo_file_name = $file->getClientOriginalName();
+          $destinationPath = public_path().'/assets/imgs/personal_details';
+          $file->move($destinationPath,$student_photo_file_name);
+        }
+
 
 
 
@@ -247,7 +254,13 @@ class details_save extends Controller
     	$data->student_photo = $request->student_photo;
     	$data->student_signature = $request->student_signature;
     	$data->save();
-        return redirect('/personal_detsails');
+
+        $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
+
+        $data = StudentRegistration::find($id);
+
+        // $personal_detail_obj = personal_details::all();
+        return view('personal_details', ['personal_detail'=>$data]);
         // return redirect('/personal_details')->with('success','Personal details saved successfully!');
     }
     public function academic_details(Request $request) {
@@ -269,6 +282,7 @@ class details_save extends Controller
 
         $data = new academic_details();
         $data->course_year = $request->course_year;
+        // $data->personal_details_id = $request->personal_details_id;
         $data->sub_course = $request->sub_course;
         $data->college_name = $request->college_name;
         $data->marathi = $request->marathi;
@@ -306,7 +320,15 @@ class details_save extends Controller
         $data->income_certificate_data = $request->income_certificate_data;
         $data->Domicile_certificate_data = $request->Domicile_certificate_data;
         $data->save();
-        return redirect('/personal_details')->with('success','Category details saved successfully!');
+        // return redirect('/personal_details')->with('success','Category details saved successfully!');
+        $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
+
+        $data = StudentRegistration::find($id);
+
+        // $personal_detail_obj = personal_details::all();
+        return view('personal_details', ['personal_detail'=>$data]);
+
+        return view('personal_details',['personal_detail'=>[]]);
     }
     public function payment_details(Request $request) {
         // dd($request->all());
@@ -316,7 +338,15 @@ class details_save extends Controller
         $data = new payment_details();
         $data->Amount = $request->Amount;
         $data->save();
-        return redirect('personal_details/')->with('success','Payment details saved succesfully');
+
+        $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
+
+        $data = StudentRegistration::find($id);
+
+        // // $personal_detail_obj = personal_details::all();
+        return view('personal_details', ['personal_detail'=>$data]);
+
+        // return redirect('/personal_details')->with('success','Payment details saved succesfully');
     }
     public function forgot_password() {
         // dd(1);
@@ -388,14 +418,14 @@ class details_save extends Controller
         return view('/customer', compact('data'));
     }
     public function export_pdf(){
-        $obj = DB::table('personal_details')
-            ->leftJoin('academic_details', 'personal_details.id', '=', 'academic_details.id')
-            ->get();
-            echo "<pre>";
-            print_r($obj)
+        // $obj = DB::table('personal_details')
+        //     ->leftJoin('academic_details', 'personal_details.id', '=', 'academic_details.id')
+        //     ->get();
+        //     echo "<pre>";
+        //     print_r($obj);
 
-        $id =155;
-        $id1 =10;
+        $id =203;
+        $id1 =1;
         $data = DB::table('personal_details')->where('id', $id)->first();
         $data1 = DB::table('academic_details')->where('id', $id1)->first();
         // dd($data->id);
@@ -405,4 +435,15 @@ class details_save extends Controller
     }
 
 
+// --------Ajay's Functions-----------
+// public function sports() {
+//     return view('sports.sports');
+// }
+// public function events() {
+//     return view('events.events');
+// }
+// public function cricket_registration() {
+//     return view('sports.cricket_registration');
+// }
+// -------------------
   }

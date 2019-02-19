@@ -58,3 +58,14 @@ Route::get('/pdf', function() {
 // Route::get('/pdf','details_save@export_pdf');
 Route::get('/import_data','details_save@import_data');
 Route::get('/pdf','details_save@export_pdf');
+
+// ----Ajay's Routes sports---------
+Route::get('/sports','SportsController@sports');
+Route::get('/events','SportsController@events');
+Route::get('/cricket_registration','SportsController@cricket_registration');
+Route::post('/cricket_details','SportsController@cricket_details');
+Route::get('/football_registration','SportsController@football_registration');
+Route::get('/Kabaddi_registration','SportsController@Kabaddi_registration');
+Route::get('/PUBG_registration','SportsController@PUBG_registration');
+Route::get('/Tennis_registration','SportsController@Tennis_registration');
+// -------------------------

@@ -49,7 +49,7 @@
         <li><a href="{{url('/others_page')}}">Others</a></li>
       </ul>
     </li>    
-    <li class="dropdown">
+<!--     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">Faculties
       <span class="caret"></span></a>
       <ul class="dropdown-menu">
@@ -62,7 +62,12 @@
         <li><a href="{{url('/others_page_faculties')}}">Others</a></li>
       </ul>
     </li>
-    <li><a href="{{url('/about_university')}}">About University</a></li>
+ -->
+
+     <li><a href="{{url('/about_university')}}">About University</a></li>
+     <li><a href="{{url('/sports')}}">Sports</a></li>
+     <li><a href="{{url('/events')}}">Events</a></li>
+ 
     <li><a href="{{url('/contact_page')}}">Contact us</a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">

@@ -55,19 +55,19 @@
 					    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="enter mobile number" maxlength="10" value="{{ $personal_detail->mobile }}">
 					  </div>
 					   <div class="form-group">
-					    <label for="pwd">email:</label>
+					    <label for="pwd">Email:</label>
 					    <input type="email" class="form-control" id="email" name="email" placeholder="enter email" value="{{ $personal_detail->email }}">
 					  </div>
 					    <div class="form-group">
-					      <label >address:</label>
+					      <label >Address:</label>
 							<textarea class="form-control" rows="5" name="address" placeholder="enter address">{{ $personal_detail->Address }}</textarea>
 						</div>
 						<div>
-						<label>choose your photograph:</label>
+						<label>Choose your photograph:</label>
 						<input type="file" class="form-control" id="photograph" name="student_photo">
 						</div>
 							<div>
-						<label>choose your signature:</label>
+						<label>Choose your signature:</label>
 						<input type="file" class="form-control" id="photograph" name="student_signature">
 						</div><br>
 					  	<button type="submit" class="btn btn-success">Save & proceed</button> 
@@ -113,6 +113,7 @@
 				            cache: true,
 				            processData:false,
 				            success: function(obj) {
+				            	alert('sucess')
 				              $(".alert-danger").remove();
 				              console.log('removed...')
 				              $('#myModal').modal();
@@ -150,6 +151,7 @@
 				   @endif
 				   <form id="academic_details_form" class="form-inline" enctype="multipart/form-data">
 				   	<!-- {{csrf_field()}} -->
+				   	<!-- <input type="hidden" value="1" name="personal_details_id"> -->
 					  <div class="form-group">
 				    	<div class="form-group">
 						      <div class="col-sm-4">
@@ -331,6 +333,7 @@
       <div class="radio">
         <label><input type="radio" name="caste_category_status" checked>Yes</label>
       </div>
+      <input type="hidden" name="email" value="{{$personal_detail->email}}">
       <div class="radio">
         <label><input type="radio" name="caste_category_status">No</label>
       </div>
@@ -382,10 +385,10 @@
 				      <div class="modal-content">
 				        <div class="modal-header">
 				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title">Student Categiry</h4>
+				          <h4 class="modal-title">Student Category</h4>
 				        </div>
 				        <div class="modal-body">
-				          <p>Category Details Save</p>
+				          <p>Category Details Saved</p>
 				        </div>
 				        <div class="modal-footer">
 				          <button type="button" class="btn btn-success go_to_next_step" data-dismiss="modal">Go Next</button>
@@ -453,7 +456,7 @@
 			   @endif
 			    <form id="payment_details_form">
 			    	 <!-- {{csrf_field()}} -->
-
+			    	 <input type="hidden" name="email" value="{{$personal_detail->email}}">
 				  <div class="form-group">
 				    <label>Enter Amount:</label>
 				    <input type="text" class="form-control" name="Amount" maxlength="5">
@@ -479,7 +482,7 @@
             cache: false,
             processData:false,
             success: function(obj) {
-              // alert('success')
+              alert('success')
               $('.alert-danger').remove();
               
             },		
