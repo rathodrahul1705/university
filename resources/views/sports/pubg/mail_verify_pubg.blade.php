@@ -17,11 +17,13 @@
 			<h1>Welcome to CADMI</h1>
 		</div>
 		<div class="row">
-			<p>We are happy that you are interested in admission to our lovely University of Mumbai.</p>
+			<p>We are happy that you are interested for pubg competetion</p>
+			
+			<span>Your Registration ID is: <b>{{$registration_id}}</b></span>
+
 			Please follow the below link for the verification of email.
-			<!-- <a href="{{url('http://localhost/university_addmission/public/login_page')}}"></a> -->
 			<strong>Click on link  below</strong>
-			<a href="{{ url('/') }}/verify_mail/{{$verification_string }}" class="btn btn-primary">{{ url('/') }}/verify_mail/{{$verification_string }} </a>
+			<a href="{{ url('/') }}/verify_mail_pubg/{{$verification_string }}" class="btn btn-primary">{{ url('/') }}/verify_mail_pubg/{{$verification_string }} </a>
 		</div>
 	</div>
 </body>

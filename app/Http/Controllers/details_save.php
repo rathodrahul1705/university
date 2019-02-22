@@ -13,6 +13,7 @@ use Mail;
 use Response;
 use DB;
 use PDF;
+// use validate;
 
 class details_save extends Controller
 {

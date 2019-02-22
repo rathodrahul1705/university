@@ -22,30 +22,23 @@
 		  <!-- Wrapper for slides -->
 		  <div class="carousel-inner">
 		    <div class="item active">
-		      <img src="{{ url('assets\imgs\sports\cricket\cricket2.jpg') }}" alt="Chicago">
+		      <img src="{{ url('assets\imgs\sports\football\football2.jpg') }}" alt="Chicago">
+		    </div>
+		    <div class="item">
+		      <img src="{{ url('assets\imgs\sports\football\football3.jpg') }}" alt="Chicago">
+		  	</div>
+
+		    <div class="item">
+		      <img src="{{ url('assets\imgs\sports\football\football4.jpg') }}" alt="Chicago">
 		    </div>
 
 		    <div class="item">
-		      <img src="{{ url('assets\imgs\sports\cricket\cricket1.jpg') }}" alt="Los Angeles">
-		    </div>
+		      <img src="{{ url('assets\imgs\sports\football\football5.jpg') }}" alt="Chicago">
+		    </div> 
 
 		    <div class="item">
-		      <img src="{{ url('assets\imgs\sports\cricket\virat.jpg') }}" alt="New York">
+		      <img src="{{ url('assets\imgs\sports\football\football6.jpg') }}" alt="Chicago">
 		    </div>
-
-		    <div class="item">
-		      <img src="{{ url('assets\imgs\sports\cricket\cricket3.jpg') }}" alt="New York">
-		    </div>
-
-		    <!-- <div class="item">
-		      <img src="{{ url('assets\imgs\sports\cricket\cricket4.jpg') }}" alt="New York">
-		    </div>
-		  </div> -->
-
-		  	<div class="item">
-		      <img src="{{ url('assets\imgs\sports\cricket\cricket5.png') }}" alt="New York">
-		    </div>
-		  </div>
 
 		  <!-- Left and right controls -->
 		  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -58,23 +51,23 @@
 		  </a>
 		</div>		
 	</div>
-<!-- 	<div class="row">
-		<h3>Register here...</h3>
-		<ul>
-			<li>
-				<a href="{{ url('/cricket_registration') }}">Cricket</a><br>
-				<a href="{{ url('/football_registration') }}">football</a><br>
-				<a href="{{ url('/Kabaddi_registration') }}">Kabaddi</a><br>
-				<a href="{{ url('/PUBG_registration') }}">PUBG</a><br>
-				<a href="{{ url('/Tennis_registration') }}">Tennis</a>
-			</li>
-		</ul>
-	</div> -->
-</div>
+<!-- -------------------------------------football form-------------------- -->
+
+
 <div class="container">
 	<div class="row col-sm-6 col-sm-offset-2">
-		<center><h1>Cricket Registration</h1></center>
-		<form class="form-horizontal" action="{{url('/cricket_details')}}" method="post">
+		<center><h1>FOOTBALL REGISTRATION</h1></center>
+
+		  @if(count($errors) > 0)
+		    @foreach($errors->all() as $error)
+		      <div class="alert alert-danger">
+		      {{$error}}
+		      </div>
+		    @endforeach
+		  @endif
+
+		  
+		<form class="form-horizontal" action="{{url('/football_details')}}" method="post">
 			{{ csrf_field()}}
 		  <div class="form-group">
 		    <label class="control-label col-sm-2">Name:</label>
@@ -91,7 +84,7 @@
 		  <div class="form-group">
 		    <label class="control-label col-sm-2">mobile:</label>
 		    <div class="col-sm-10"> 
-		      <input type="text" class="form-control" id="mobile" placeholder="Enter mobile" name="mobile">
+		      <input type="text" class="form-control" id="mobile" placeholder="Enter mobile" name="mobile" maxlength="10">
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -177,30 +170,6 @@
 		    <div class="col-sm-10"> 
 		      <input type="text" class="form-control" id="mobile" placeholder="Enter name" name="participate11">
 		    </div>	
-		  </div>
-		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="pwd">participate12:</label>
-		    <div class="col-sm-10"> 
-		      <input type="text" class="form-control" id="mobile" placeholder="Enter name" name="participate12">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="pwd">participate13:</label>
-		    <div class="col-sm-10"> 
-		      <input type="text" class="form-control" id="mobile" placeholder="Enter name" name="participate13">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="pwd">participate14:</label>
-		    <div class="col-sm-10"> 
-		      <input type="text" class="form-control" id="mobile" placeholder="Enter name" name="participate14">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="pwd">participate15:</label>
-		    <div class="col-sm-10"> 
-		      <input type="text" class="form-control" id="mobile" placeholder="Enter name" name="participate15">
-		    </div>
 		  </div>
 		</div>
 	  <div class="form-group"> 

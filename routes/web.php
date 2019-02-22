@@ -59,13 +59,39 @@ Route::get('/pdf', function() {
 Route::get('/import_data','details_save@import_data');
 Route::get('/pdf','details_save@export_pdf');
 
-// ----Ajay's Routes sports---------
+
+
+
+// ----Ajay's Routes sports--------------------------------------------
 Route::get('/sports','SportsController@sports');
 Route::get('/events','SportsController@events');
 Route::get('/cricket_registration','SportsController@cricket_registration');
 Route::post('/cricket_details','SportsController@cricket_details');
+Route::get('/verify_mail_cricket/{verification_string}','SportsController@verify_mail_cricket');
+
+// ---------------------------------------------------------------------
+
+
+
+// -------------------football routs------------------------------------
+Route::post('/football_details','SportsController@football_details');
 Route::get('/football_registration','SportsController@football_registration');
-Route::get('/Kabaddi_registration','SportsController@Kabaddi_registration');
+Route::get('/verify_mail_football/{verification_string}','SportsController@verify_mail_football');
+// -------------------football routs ends---------------
+
+
+
+// -------------------pubg routs ---------------
 Route::get('/PUBG_registration','SportsController@PUBG_registration');
+Route::post('/pubg_details','SportsController@pubg_details');
+Route::get('/verify_mail_pubg/{verification_string}','SportsController@verify_mail_pubg');
+Route::get('/pubg_pdf_download','SportsController@pubgPdfDownload');
+// -------------------pubg routs ends--------------
+
+
+
+// -------------------tennis routs ---------------
 Route::get('/Tennis_registration','SportsController@Tennis_registration');
-// -------------------------
+Route::post('/tennis_details','SportsController@tennis_details');
+Route::get('/verify_mail_tennis/{verification_string}','SportsController@verify_mail_tennis');
+// -------------------tennis routs end ---------------

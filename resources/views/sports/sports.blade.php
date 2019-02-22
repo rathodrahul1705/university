@@ -22,11 +22,11 @@
 		  <!-- Wrapper for slides -->
 		  <div class="carousel-inner">
 		    <div class="item active">
-		      <img src="{{ url('assets\imgs\sports\cricket\cricket1.jpg') }}" alt="Los Angeles">
+		      <img src="{{ url('assets\imgs\sports\cricket\cricket2.jpg') }}" alt="Los Angeles">
 		    </div>
 
 		    <div class="item">
-		      <img src="{{ url('assets\imgs\sports\football\football1.jpg') }}" alt="Chicago">
+		      <img src="{{ url('assets\imgs\sports\football\football6.jpg') }}" alt="Chicago">
 		    </div>
 
 		    <div class="item">
