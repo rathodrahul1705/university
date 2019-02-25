@@ -3,7 +3,7 @@
 <div class="container">
 
 	<div class="row">
-		<h4><b>PUBG Mobile Registration Details:</b></h4>
+		<h4><b>FOOTBALL Registration Details:</b></h4>
 		<table class="table table-bordered table-hover table-striped">
 			<thead>
 				<tr>
@@ -15,6 +15,13 @@
 					<th>participate2</th>
 					<th>participate3</th>
 					<th>participate4</th>
+					<th>participate5</th>
+					<th>participate6</th>
+					<th>participate7</th>
+					<th>participate8</th>
+					<th>participate9</th>
+					<th>participate10</th>
+					<th>participate11</th>
 				</tr>
 			</thead>1
 			<tbody>
@@ -27,6 +34,13 @@
 					<td>{{$data->participate2}}</td>
 					<td>{{$data->participate3}}</td>
 					<td>{{$data->participate4}}</td>
+					<td>{{$data->participate5}}</td>
+					<td>{{$data->participate6}}</td>
+					<td>{{$data->participate7}}</td>
+					<td>{{$data->participate8}}</td>
+					<td>{{$data->participate9}}</td>
+					<td>{{$data->participate10}}</td>
+					<td>{{$data->participate11}}</td>
 				</tr>
 			</tbody>
 		</table>

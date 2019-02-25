@@ -169,8 +169,11 @@ class details_save extends Controller
             $id = DB::table('student_registrations')->where('email', $request->username)->where('password', $request->password)->where('verification_string', NULL)->value('id');
 
         }
+
+        // dd(23);
+
         $data = StudentRegistration::find($id);
-        // dd($data);
+        // dd($id);
         // for($i=0;$i<count($data);$i++) {
         //     if($data[$i]->verification_string==NULL || $data[$i]->verification_string== '') {
         //         if($data[$i]->email == $request->username || $data[$i]->mobile == $request->username){
@@ -212,6 +215,7 @@ class details_save extends Controller
             else if($password_check == null) {
                 return redirect('/login_page')->with('error','Entered Password is  Invalid.');
             }
+            // dd(1);
         }      
 
     }   
@@ -253,7 +257,8 @@ class details_save extends Controller
     	$data->email = $request->email;
     	$data->address = $request->address;
     	$data->student_photo = $request->student_photo;
-    	$data->student_signature = $request->student_signature;
+        $data->student_signature = $request->student_signature;
+    	$data->academic_details_id = $request->academic_details_id;
     	$data->save();
 
         $id = DB::table('student_registrations')->where('email', $request->email)->value('id');

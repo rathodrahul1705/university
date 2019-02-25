@@ -68,6 +68,8 @@ Route::get('/events','SportsController@events');
 Route::get('/cricket_registration','SportsController@cricket_registration');
 Route::post('/cricket_details','SportsController@cricket_details');
 Route::get('/verify_mail_cricket/{verification_string}','SportsController@verify_mail_cricket');
+Route::get('/Cricket_pdf_download','SportsController@cricketPdfDownload');
+
 
 // ---------------------------------------------------------------------
 
@@ -77,6 +79,8 @@ Route::get('/verify_mail_cricket/{verification_string}','SportsController@verify
 Route::post('/football_details','SportsController@football_details');
 Route::get('/football_registration','SportsController@football_registration');
 Route::get('/verify_mail_football/{verification_string}','SportsController@verify_mail_football');
+Route::get('/football_pdf_download','SportsController@footballPdfDownload');
+// Route::get('/football_pdf_download','SportsController@pubgPdfDownload');
 // -------------------football routs ends---------------
 
 
@@ -94,4 +98,5 @@ Route::get('/pubg_pdf_download','SportsController@pubgPdfDownload');
 Route::get('/Tennis_registration','SportsController@Tennis_registration');
 Route::post('/tennis_details','SportsController@tennis_details');
 Route::get('/verify_mail_tennis/{verification_string}','SportsController@verify_mail_tennis');
+Route::get('/verify_mail_tennis','SportsController@tennisPdfDownload');
 // -------------------tennis routs end ---------------

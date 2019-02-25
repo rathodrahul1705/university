@@ -148,7 +148,7 @@
 		</div>
 	  <div class="form-group"> 
 	    <div class="col-sm-offset-2 col-sm-2">
-	      <button type="submit" class="btn btn-success">Submit</button>
+	      <button type="submit" class="btn btn-succes1s">Submit</button>
 	    </div>
 	    <div class="col-sm-offset-2">
 	      <button type="button" class="btn btn-primary" id="add_participants_btn">Add Participants</button>

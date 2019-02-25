@@ -46,12 +46,29 @@ class SportsController extends Controller
     	$data->participate15 = $req->participate15;
         $data->verification_string = $verification_string;
 
+
+        function registrationIdGenerate($length) {
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $max = strlen($codeAlphabet); // edited
+
+        for ($i=0; $i < $length; $i++) {
+            $token .= $codeAlphabet[random_int(0, $max-1)];
+        }
+
+        return $token;
+        }
+
+        $id = registrationIdGenerate(5);
+        $registration_id = 'CAD'.$id;
+
+
         $title="Student Registration";
             $message = "Registration is successful.";
             $email = $req->email;
 
             $message_data = ["message" => $message, "email"=>$email];
-            Mail::send('sports.cricket.mail_verify_cricket', ['title' => $title, 'message_data' => $message_data, 'verification_string'=> $verification_string], function ($message) use($message_data)
+            Mail::send('sports.cricket.mail_verify_cricket', ['title' => $title, 'message_data' => $message_data, 'verification_string'=> $verification_string,'registration_id'=>$registration_id,'email'=>$email], function ($message) use($message_data)
              {
                 $message->from('rathodrahul1705@gmail.com');
                 $message->to($message_data['email'])->subject('Verification of University of Mumbai');
@@ -71,6 +88,16 @@ class SportsController extends Controller
             return view('sports.cricket.mail_verify_failed_cricket');
 
         }
+
+        }
+
+        public function cricketPdfDownload(){
+
+            $id=1;
+            $data = DB::table('cricket_details')->where('id', $id)->first();
+            // dd($data->id);
+            $pdf = PDF::loadView('sports.cricket.Cricket_user', compact('data'));
+            return $pdf->download('Cricket_regisraion_detail.pdf');
     }
 
 
@@ -145,12 +172,28 @@ class SportsController extends Controller
         $data->participate11 = $req->participate11;
         $data->verification_string = $verification_string;
 
+
+        function registrationIdGenerate($length) {
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $max = strlen($codeAlphabet); // edited
+
+        for ($i=0; $i < $length; $i++) {
+            $token .= $codeAlphabet[random_int(0, $max-1)];
+        }
+
+        return $token;
+        }
+
+        $id = registrationIdGenerate(5);
+        $registration_id = 'CAD'.$id;
+
         $title="Student Registration";
             $message = "Registration is successful.";
             $email = $req->email;
 
             $message_data = ["message" => $message, "email"=>$email];
-            Mail::send('sports.football.mail_verify_football', ['title' => $title, 'message_data' => $message_data, 'verification_string'=> $verification_string], function ($message) use($message_data)
+            Mail::send('sports.football.mail_verify_football', ['title' => $title, 'message_data' => $message_data, 'verification_string'=> $verification_string,'registration_id'=>$registration_id,'email'=>$email], function ($message) use($message_data)
              {
                 $message->from('rathodrahul1705@gmail.com');
                 $message->to($message_data['email'])->subject('Verification of University of Mumbai');
@@ -171,8 +214,19 @@ class SportsController extends Controller
         }
         else {
             
-            return view('sports.football.mail_verify_failed_football');
+            return view('sports.football.mail_verify_failed_footballs');
         }
+
+        }
+
+
+        public function footballPdfDownload(){
+
+            $id=1;
+            $data = DB::table('football_registrations')->where('id', $id)->first();
+            // dd($data->id);
+            $pdf = PDF::loadView('sports.football.football_user', compact('data'));
+            return $pdf->download('football_regisraion_detail.pdf');
     }
 
 
@@ -288,12 +342,29 @@ public function pubgPdfDownload() {
         $data->verification_string = $verification_string;
 
 
+        function registrationIdGenerate($length) {
+             $token = "";
+            $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+             $max = strlen($codeAlphabet); // edited
+
+            for ($i=0; $i < $length; $i++) {
+                $token .= $codeAlphabet[random_int(0, $max-1)];
+            }
+
+            return $token;
+        }
+
+        $id = registrationIdGenerate(5);
+        $registration_id = 'CAD'.$id;
+
+
+
         $title="Student Registration";
             $message = "Registration is successful.";
             $email = $req->email;
 
             $message_data = ["message" => $message, "email"=>$email];
-            Mail::send('sports.tennis.mail_verify_tennis', ['title' => $title, 'message_data' => $message_data, 'verification_string'=> $verification_string], function ($message) use($message_data)
+            Mail::send('sports.tennis.mail_verify_tennis', ['title' => $title, 'message_data' => $message_data, 'verification_string'=> $verification_string,'registration_id'=>$registration_id,'email'=>$email], function ($message) use($message_data)
              {
                 $message->from('rathodrahul1705@gmail.com');
                 $message->to($message_data['email'])->subject('Verification of University of Mumbai');
@@ -301,6 +372,9 @@ public function pubgPdfDownload() {
         $data->save();
 
         }
+
+
+
         public function verify_mail_tennis($verification_string) {
         $data = tennis_registration::all();
         $result = DB::table('tennis_registrations')->where('verification_string', $verification_string)->first();
@@ -312,6 +386,14 @@ public function pubgPdfDownload() {
             
             return view('sports.tennis.mail_verify_failed_tennis');
         }
+
+        }
+        public function tennisPdfDownload(){
+            $id=1;
+            $data = DB::table('tennis_registrations')->where('id', $id)->first();
+            // dd($data->id);
+            $pdf = PDF::loadView('sports.tennis.tennis_user', compact('data'));
+            return $pdf->download('tennis_regisraion_detail.pdf');
 
         }
 

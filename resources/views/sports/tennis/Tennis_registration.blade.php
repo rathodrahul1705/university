@@ -49,18 +49,11 @@
 	<div class="row col-sm-6 col-sm-offset-2">
 		<center><h1>TENNIS REGISTRATIONS</h1></center>
 
-		@if(count($errors) > 0)
-		    @foreach($errors->all() as $error)
-		      <div class="alert alert-danger">
-		      {{$error}}
-		      </div>
-		    @endforeach
-		  @endif
+		<div class="errors">
+			
+		</div>
 
-
-
-		<form class="form-horizontal" action="{{url('/tennis_details')}}" method="post">
-			{{ csrf_field()}}
+			<form class="form-horizontal" id="tennis_registration">
 		  <div class="form-group">
 		    <label class="control-label col-sm-2">Name:</label>
 		    <div class="col-sm-10">
@@ -121,6 +114,40 @@
 		</form>		
 	</div>	
 </div>
+
+    <script>
+      $(function() {
+        // $('#loading_icon').hide();
+        $('#tennis_registration').on('submit', function(e) {
+          // $('#loading_icon').show();
+          e.preventDefault();
+          $.ajax({
+            url: '{{url("/tennis_details")}}',
+            headers:{
+               'X-CSRF-TOKEN': "{{ csrf_token() }}"
+             },   
+            method: 'POST',
+            type: 'JSON',
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(obj) {
+            	alert('success')
+            },
+            error: function(obj) {																						
+              // alert(obj)
+              $(".alert-danger").remove();
+              console.log(obj.responseJSON.errors)
+              $.each(obj.responseJSON.errors, function(key, val) {
+                $('.errors').append("<ul style='list-style-type: none;'><li class='alert alert-danger'>"+val+"</li></ul>");
+              });
+            },
+          })
+        })
+      })
+  </script>
+
 <script type="text/javascript">
 	$(function() {
 		$('.participants_section').hide();

@@ -3,7 +3,7 @@
 <div class="container">
 
 	<div class="row">
-		<h4><b>PUBG Mobile Registration Details:</b></h4>
+		<h4><b>TENNIS  Registration Details:</b></h4>
 		<table class="table table-bordered table-hover table-striped">
 			<thead>
 				<tr>
@@ -13,8 +13,6 @@
 					<th>Department</th>
 					<th>participate1</th>
 					<th>participate2</th>
-					<th>participate3</th>
-					<th>participate4</th>
 				</tr>
 			</thead>1
 			<tbody>
@@ -25,8 +23,6 @@
 					<td>{{$data->Department}}</td>
 					<td>{{$data->participate1}}</td>
 					<td>{{$data->participate2}}</td>
-					<td>{{$data->participate3}}</td>
-					<td>{{$data->participate4}}</td>
 				</tr>
 			</tbody>
 		</table>

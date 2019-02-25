@@ -6,4 +6,7 @@
 			<p>E-mail verified Successfully, All the best for the Game!</p>
 		</div>
 	</div>
+		<div class="row">
+		Please Download PDF here <a href="{{ url('/football_pdf_download') }}" class="btn btn-info"><i class="fa fa-file-pdf-o"></i></a>
+	</div>
 </div>

@@ -113,7 +113,7 @@
 				            cache: true,
 				            processData:false,
 				            success: function(obj) {
-				            	alert('sucess')
+				            	// alert('sucess')
 				              $(".alert-danger").remove();
 				              console.log('removed...')
 				              $('#myModal').modal();
@@ -124,6 +124,7 @@
 				            },
 				            error: function(obj) {
 				              // alert('Error')
+				            $(".alert-danger").remove();
                             console.log(obj.responseJSON.errors)
               				$.each(obj.responseJSON.errors, function(key, val) {
                				 $('.errors').append("<ul style='list-style-type: none;'><li class='alert alert-danger'>"+val+"</li></ul>")
@@ -170,6 +171,7 @@
 						      </div>
 						    </div> 
 					  	</div>
+					  	<input type="hidden" name="academic_details_id" value="">
 					  	<div class="form-group">
 						      <div class="col-sm-4">
 						        <select class="form-control" name="sub_course">

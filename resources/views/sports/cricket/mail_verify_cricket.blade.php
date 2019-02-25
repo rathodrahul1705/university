@@ -18,6 +18,9 @@
 		</div>
 		<div class="row">
 			<p>We are happy that you are interested for cricket competetion</p>
+
+			<span>Your Registration ID is: <b>{{$registration_id}}</b></span>
+
 			Please follow the below link for the verification of email.
 			<!-- <a href="{{url('http://localhost/university_addmission/public/login_page')}}"></a> -->
 			<strong>Click on link  below</strong>
