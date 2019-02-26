@@ -47,9 +47,16 @@
 						<!-- <form action="" method="post"> -->	
 						 <!-- {{csrf_field()}} -->
 						   <div class="form-group">
+
 					    <label for="email">Name:</label>
 					    <input type="text" class="form-control" id="name" placeholder="enter name" name="name" value="{{ $personal_detail->name }}">	
 					  </div>
+					  
+					  <div class="form-group">
+					    <label for="pwd">Mobile:</label>
+					    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="enter mobile number" maxlength="10" value="{{ $personal_detail->mobile }}">
+					  </div>
+
 					  <div class="form-group ">
 					    <label for="pwd">Mobile:</label>
 					    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="enter mobile number" maxlength="10" value="{{ $personal_detail->mobile }}">
@@ -71,10 +78,7 @@
 						<input type="file" class="form-control" id="photograph" name="student_signature">
 						</div><br>
 					  	<button type="submit" class="btn btn-success">Save & proceed</button> 
-					</form>
-										
-
-
+					</form>									
 
 										<!-- Modal -->
 					<div id="myModal" class="modal fade" role="dialog">
@@ -87,7 +91,7 @@
 					        <h4 class="modal-title">Personal details</h4>
 					      </div>
 					      <div class="modal-body">
-					        <p>personal details saved successfully.</p>
+					        <p>Personal details saved successfully.</p>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-info go_to_next_tab" data-dismiss="modal">Go Next</button>
@@ -113,7 +117,8 @@
 				            cache: true,
 				            processData:false,
 				            success: function(obj) {
-				            	// alert('sucess')
+				            	console.log(obj['student_id'])
+				            	$('#student_id').attr('value', obj['student_id'])
 				              $(".alert-danger").remove();
 				              console.log('removed...')
 				              $('#myModal').modal();
@@ -152,7 +157,7 @@
 				   @endif
 				   <form id="academic_details_form" class="form-inline" enctype="multipart/form-data">
 				   	<!-- {{csrf_field()}} -->
-				   	<!-- <input type="hidden" value="1" name="personal_details_id"> -->
+				   	<input id="student_id" type="hidden" value="1" name="student_id" value="">
 					  <div class="form-group">
 				    	<div class="form-group">
 						      <div class="col-sm-4">
@@ -171,7 +176,7 @@
 						      </div>
 						    </div> 
 					  	</div>
-					  	<input type="hidden" name="academic_details_id" value="">
+					  	<!-- <input type="hidden" name="academic_details_id" value=""> -->
 					  	<div class="form-group">
 						      <div class="col-sm-4">
 						        <select class="form-control" name="sub_course">
@@ -279,6 +284,10 @@
       	$(function() {
         	$('#academic_details_form').on('submit', function(e) {
           	e.preventDefault();
+          	student_id = $('#student_id').val();
+          	alert(student_id)
+          	form_data = new FormData(this)
+          	form_data.append('student_id', student_id)
           	$.ajax({
             url: '{{url("/academic_details")}}',
             headers:{
@@ -286,20 +295,22 @@
              },   
             method: 'POST',
             type: 'JSON',
-            data:  new FormData(this),
+            data:  form_data,
             contentType: false,
             cache: false,
             processData:false,
             success: function(obj) {
+            	console.log(obj)
               $(".alert-danger").remove();
               console.log('removed...')
               $('#popUp').modal();
               $('.go_to_next').on('click', function() {
             	$('.nav-tabs a[href="#category_details"]').tab('show');
-            });
+              });
             },
             error: function(obj) {
               // alert('Error')
+                        $(".alert-danger").remove();
           console.log(obj.responseJSON.errors)
 			$.each(obj.responseJSON.errors, function(key, val) {
 			 $('.errors').append("<ul style='list-style-type: none;'><li class='alert alert-danger'>"+val+"</li></ul>")
@@ -405,6 +416,11 @@
       		$(function() {
         	$('#student_category').on('submit', function(e) {
           	e.preventDefault();
+          	student_id = $('#student_id').val();
+          	alert(student_id)
+          	form_data = new FormData(this)
+          	form_data.append('student_id', student_id)
+
           	$.ajax({
             url: '{{url("/student_category")}}',
             headers:{
@@ -412,11 +428,12 @@
              },   
             method: 'POST',
             type: 'JSON',
-            data:  new FormData(this),
+            data:  form_data,
             contentType: false,
             cache: false,
             processData:false,
             success: function(obj) {
+            	console.log(obj)
               // alert('success')
               // $('.alert-danger').remove();
               // $('.nav-tabs a[href="#payment_details"]').tab('show');
@@ -429,6 +446,7 @@
             },
             error: function(obj) {
               // alert('Error')
+              $(".alert-danger").remove();
               console.log(obj.responseJSON.errors)
 			$.each(obj.responseJSON.errors, function(key, val) {
 			 $('.errors').append("<ul style='list-style-type: none;'><li class='alert alert-danger'>"+val+"</li></ul>")
@@ -472,6 +490,11 @@
       		$(function() {
         	$('#payment_details_form').on('submit', function(e) {
           	e.preventDefault();
+          	student_id = $('#student_id').val();
+          	alert(student_id)
+          	form_data = new FormData(this)
+          	form_data.append('student_id', student_id)
+
           	$.ajax({
             url: '{{url("/payment_details")}}',
             headers:{
@@ -479,7 +502,7 @@
              },   
             method: 'POST',
             type: 'JSON',
-            data:  new FormData(this),
+            data:  form_data,
             contentType: false,
             cache: false,
             processData:false,
@@ -490,6 +513,7 @@
             },		
             error: function(obj) {
               // alert('Error')
+              $(".alert-danger").remove();
               console.log(obj.responseJSON.errors)
 			$.each(obj.responseJSON.errors, function(key, val) {
 			 $('.errors').append("<ul style='list-style-type: none;'><li class='alert alert-danger'>"+val+"</li></ul>")

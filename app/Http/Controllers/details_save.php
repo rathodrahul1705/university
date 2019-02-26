@@ -184,7 +184,7 @@ class details_save extends Controller
         // }
         // dd($data);
 
-        if($data != NULL) {
+        if($data != NULL) { 
             return view("personal_details", ["personal_detail"=>$data]);
         }
         else {
@@ -258,16 +258,30 @@ class details_save extends Controller
     	$data->address = $request->address;
     	$data->student_photo = $request->student_photo;
         $data->student_signature = $request->student_signature;
-    	$data->academic_details_id = $request->academic_details_id;
     	$data->save();
+
+        // $student_data = personal_details::find($request->email);
+
+        // $student_id = $student_data->id;
+        // Laravel::log($student_data);
+
+        // print_r($data->id);
+        $student_id =$data->id;
 
         $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
 
         $data = StudentRegistration::find($id);
 
+        // print_r($data);
+
         // $personal_detail_obj = personal_details::all();
-        return view('personal_details', ['personal_detail'=>$data]);
-        // return redirect('/personal_details')->with('success','Personal details saved successfully!');
+        // return view('personal_details', ['personal_detail'=>$data, 'student_id'=> $student_id]);
+        $personal_data = $data;
+        $personal_data['student_id'] = $student_id;
+
+        return Response::json($personal_data);
+
+        // return redirect('/personal_details')->with('success','Personal details saved successfully!', ['personal_detail'=>$data, 'student_id'=>$student_id]);
     }
     public function academic_details(Request $request) {
         // dd($request->all());
@@ -298,7 +312,9 @@ class details_save extends Controller
         $data->mathematics = $request->mathematics;
         $data->percentage = $request->percentage;
         $data->hsc_marksheet = $request->hsc_marksheet;
+        $data->student_id = $request->student_id;
         $data->save();
+        response::json($data);
         // return redirect('/personal_details');
         // return redirect('/personal_details')->with('success','Academic details saved successfully!');
         // return redirect('')
@@ -325,6 +341,7 @@ class details_save extends Controller
         $data->cast_validity_certificate_data = $request->cast_validity_certificate_data;
         $data->income_certificate_data = $request->income_certificate_data;
         $data->Domicile_certificate_data = $request->Domicile_certificate_data;
+        $data->student_id = $request->student_id;
         $data->save();
         // return redirect('/personal_details')->with('success','Category details saved successfully!');
         $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
@@ -343,6 +360,7 @@ class details_save extends Controller
         ]);
         $data = new payment_details();
         $data->Amount = $request->Amount;
+        $data->student_id = $request->student_id;
         $data->save();
 
         $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
