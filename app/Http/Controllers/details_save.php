@@ -288,7 +288,6 @@ class details_save extends Controller
     public function verify_mail($verification_string) {
         // dd($verification_string);
         $data = StudentRegistration::where('verification_string', $verification_string)->first();
-        // dd($data);
         if($data!=NULL || $data!='') {
             $data->verification_string = NULL;
             $data->update();
