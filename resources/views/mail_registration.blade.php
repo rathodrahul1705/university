@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<h1>Welcome to University of Mumbai</h1>
+			<h1>Welcome to CADMI</h1>
 		</div>
 		<div class="row">
 			<p>We are happy that you are interested in admission to our lovely University of Mumbai.</p>
@@ -22,7 +22,6 @@
 			<!-- <a href="{{url('http://localhost/university_addmission/public/login_page')}}"></a> -->
 			<strong>Click on link  below</strong>
 			<a href="{{ url('/') }}/verify_mail/{{$verification_string }}" class="btn btn-primary">{{ url('/') }}/verify_mail/{{$verification_string }} </a>
-			<!-- <button class="btn btn-info">Verify email</button> -->
 		</div>
 	</div>
 </body>

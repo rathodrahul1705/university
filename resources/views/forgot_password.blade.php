@@ -12,6 +12,11 @@
                 {{session('success')}}
               </div>
             @endif
+            @if(session('forgot_password_msg'))
+              <div class="alert alert-info">
+                {{session('forgot_password_msg')}}
+              </div>
+            @endif
 
 	<h1 style="text-align: center;">Forgot Password</h1>
   <form class="form-horizontal" action="{{ url('/forgot_password_save') }}" method="post">

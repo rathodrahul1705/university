@@ -99,6 +99,12 @@
         <input type="text" class="form-control" id="alt_moile" placeholder="Alernate mobile number" name="confirm_mobile" maxlength="10">
       </div>
     </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="address">Address: &nbsp;<span class="asterik">*</span>:</label>
+      <div class="col-sm-4">
+        <textarea class="form-control" id="address" placeholder="Enter your Address" name="address"></textarea>
+      </div>
+    </div>
         <div class="form-group">
       <label class="control-label col-sm-2" for="email">Email &nbsp;<span class="asterik">*</span>:</label>
       <div class="col-sm-4">

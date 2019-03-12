@@ -6,4 +6,7 @@
 			<p>E-mail verified Successfully Please login!</p>
 		</div>
 	</div>
+	<div class="row">
+		<a href="{{ url('/login_page') }}" class="btn btn-success">Log In</a>
+	</div>
 </div>

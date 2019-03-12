@@ -13,6 +13,7 @@ use Mail;
 use Response;
 use DB;
 use PDF;
+// use validate;
 
 class details_save extends Controller
 {
@@ -24,6 +25,7 @@ class details_save extends Controller
             'dob'=> 'required|date',
             'gender'=> 'required',
             'mobile'=> 'required|numeric|digits:10',
+            'address'=> 'required',
             'email'=> 'required|email',
             'password'=> 'required|min:6',
             'c_password'=> 'required|same:password|min:6',
@@ -55,6 +57,7 @@ class details_save extends Controller
             $data->gender = $request->gender;
             $data->mobile = $request->mobile;
             $data->confirm_mobile = $request->confirm_mobile;
+            $data->address = $request->address;
             $data->email = $request->email;
             $data->password = $request->password;
             $data->c_password = $request->c_password;
@@ -71,8 +74,6 @@ class details_save extends Controller
                 $message->from('rathodrahul1705@gmail.com');
                 $message->to($message_data['email'])->subject('Verification of University of Mumbai');
             });
-
-
             $data->save();
         }
         else {
@@ -145,28 +146,78 @@ class details_save extends Controller
     public function login_save(Request $request) {
         // dd($request->all());
         $email = $request->email;
-
-        $this->validate($request,[
-            'email'=>'required|email',
+        $email_check = !null;
+        $mobile_check = !null; 
+        // dd(is_numeric($request->username));
+        if(is_numeric($request->username)) {
+            // dd(1);
+            $this->validate($request,[
+            'username'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|size:10',
             'password'=>'required|min:6'
-
-        ]);
-
-        $data = StudentRegistration::all();
-        // $object = 
-        $obj =DB::table('student_registrations')->where('email', $email)->first();
-        
-        // dd($obj->email);
-            for($i=0;$i<count($data);$i++) {
-                if($data[$i]->verification_string==NULL || $data[$i]->verification_string== '') {
-
-                    if($data[$i]->email == $request->email && $data[$i]->password == $request->password ){
-                        return redirect('/personal_details');
-                        // return redirect('/personal_details')->with('success','login Successfully!');
-                    }
-            } 
+            ]);
+            $mobile_check = DB::table('student_registrations')->where('mobile', $request->username)->first();
+            $id = DB::table('student_registrations')->where('mobile', $request->username)->where('password', $request->password)->where('verification_string', NULL)->value('id');
+            // dd($mobile_check);
         }
-        return redirect('/login_page')->with('error','Invalid Credentials!');
+        else {
+            // dd(1);
+            $this->validate($request,[
+            'username'=>'required|email',
+            'password'=>'required|min:6'
+            ]);
+            $email_check = DB::table('student_registrations')->where('email', $request->username)->first();
+            $id = DB::table('student_registrations')->where('email', $request->username)->where('password', $request->password)->where('verification_string', NULL)->value('id');
+
+        }
+
+        // dd(23);
+
+        $data = StudentRegistration::find($id);
+        // dd($id);
+        // for($i=0;$i<count($data);$i++) {
+        //     if($data[$i]->verification_string==NULL || $data[$i]->verification_string== '') {
+        //         if($data[$i]->email == $request->username || $data[$i]->mobile == $request->username){
+        //             if($data[$i]->password == $request->password ) {
+        //             }
+        //         }
+        //     } 
+        // }
+        // dd($data);
+
+        if($data != NULL) { 
+            return view("personal_details", ["personal_detail"=>$data]);
+        }
+        else {
+            $ver_string = DB::table('student_registrations')->where('email', $request->username)->value('verification_string');
+            $password_check = DB::table('student_registrations')->where('password', $request->password)->first();
+            // dd(0==NULL);
+            // dd('' == null);
+            // dd($ver_string, $mobile_check, $email_check, $password_check);
+            if($ver_string != NULL) {
+                return redirect('/login_page')->with('warning','Registered but Email not verified, please check your Email inbox!');
+            }
+            else if($email_check == null && $password_check == null) {
+
+                return redirect('/login_page')->with('error','Entered Email & Password are Invalid.');
+            }
+            else if($mobile_check == null && $password_check == null) {
+
+                return redirect('/login_page')->with('error','Entered Mobile No. & Password are Invalid.');
+            }
+
+            else if($email_check == null) {
+                return redirect('/login_page')->with('error','Entered Email is  Invalid.');
+            }
+            else if($mobile_check == null) {
+                // dd(1);
+                return redirect('/login_page')->with('error','Entered Mobile No. is  Invalid.');
+            }
+            else if($password_check == null) {
+                return redirect('/login_page')->with('error','Entered Password is  Invalid.');
+            }
+            // dd(1);
+        }      
+
     }   
     public function personal_details(){
     	return view('personal_details');
@@ -177,12 +228,27 @@ class details_save extends Controller
         'name'=> 'required|regex:/^[a-zA-Z ]+$/',
         'mobile'=> 'required|numeric|digits:10',
         'email'=> 'required|email',
-        'address'=> 'required|max:50',
+        'address'=> 'required|max:100',
         'student_photo'=> 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
         'student_signature'=> 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
 
-        // dd($errors);
+        // dd($request->student_photo);
+        if($file = $request->hasFile('student_photo')) {
+          $file = $request->file('student_photo');
+          $student_photo_file_name = $file->getClientOriginalName();
+          $destinationPath = public_path().'/assets/imgs/personal_details';
+          $file->move($destinationPath,$student_photo_file_name);
+        }
+
+        if($file = $request->hasFile('student_signature')) {
+          $file = $request->file('student_signature');
+          $student_photo_file_name = $file->getClientOriginalName();
+          $destinationPath = public_path().'/assets/imgs/personal_details';
+          $file->move($destinationPath,$student_photo_file_name);
+        }
+
+
 
 
     	$data = new personal_details();
@@ -191,10 +257,31 @@ class details_save extends Controller
     	$data->email = $request->email;
     	$data->address = $request->address;
     	$data->student_photo = $request->student_photo;
-    	$data->student_signature = $request->student_signature;
+        $data->student_signature = $request->student_signature;
     	$data->save();
-        return redirect('/personal_details');
-        // return redirect('/personal_details')->with('success','Personal details saved successfully!');
+
+        // $student_data = personal_details::find($request->email);
+
+        // $student_id = $student_data->id;
+        // Laravel::log($student_data);
+
+        // print_r($data->id);
+        $student_id =$data->id;
+
+        $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
+
+        $data = StudentRegistration::find($id);
+
+        // print_r($data);
+
+        // $personal_detail_obj = personal_details::all();
+        // return view('personal_details', ['personal_detail'=>$data, 'student_id'=> $student_id]);
+        $personal_data = $data;
+        $personal_data['student_id'] = $student_id;
+
+        return Response::json($personal_data);
+
+        // return redirect('/personal_details')->with('success','Personal details saved successfully!', ['personal_detail'=>$data, 'student_id'=>$student_id]);
     }
     public function academic_details(Request $request) {
         // dd($request->all());
@@ -215,6 +302,7 @@ class details_save extends Controller
 
         $data = new academic_details();
         $data->course_year = $request->course_year;
+        // $data->personal_details_id = $request->personal_details_id;
         $data->sub_course = $request->sub_course;
         $data->college_name = $request->college_name;
         $data->marathi = $request->marathi;
@@ -224,7 +312,9 @@ class details_save extends Controller
         $data->mathematics = $request->mathematics;
         $data->percentage = $request->percentage;
         $data->hsc_marksheet = $request->hsc_marksheet;
+        $data->student_id = $request->student_id;
         $data->save();
+        response::json($data);
         // return redirect('/personal_details');
         // return redirect('/personal_details')->with('success','Academic details saved successfully!');
         // return redirect('')
@@ -251,8 +341,17 @@ class details_save extends Controller
         $data->cast_validity_certificate_data = $request->cast_validity_certificate_data;
         $data->income_certificate_data = $request->income_certificate_data;
         $data->Domicile_certificate_data = $request->Domicile_certificate_data;
+        $data->student_id = $request->student_id;
         $data->save();
-        return redirect('/personal_details')->with('success','Category details saved successfully!');
+        // return redirect('/personal_details')->with('success','Category details saved successfully!');
+        $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
+
+        $data = StudentRegistration::find($id);
+
+        // $personal_detail_obj = personal_details::all();
+        return view('personal_details', ['personal_detail'=>$data]);
+
+        return view('personal_details',['personal_detail'=>[]]);
     }
     public function payment_details(Request $request) {
         // dd($request->all());
@@ -261,8 +360,17 @@ class details_save extends Controller
         ]);
         $data = new payment_details();
         $data->Amount = $request->Amount;
+        $data->student_id = $request->student_id;
         $data->save();
-        return redirect('personal_details/')->with('success','Payment details saved succesfully');
+
+        $id = DB::table('student_registrations')->where('email', $request->email)->value('id');
+
+        $data = StudentRegistration::find($id);
+
+        // // $personal_detail_obj = personal_details::all();
+        return view('personal_details', ['personal_detail'=>$data]);
+
+        // return redirect('/personal_details')->with('success','Payment details saved succesfully');
     }
     public function forgot_password() {
         // dd(1);
@@ -277,13 +385,44 @@ class details_save extends Controller
         'confirm_new_password'=>'required|same:new_password|min:6'               
         ]);
 
+        $forgot_pswd_verification_string = md5(microtime());
 
-        
-        DB::table('student_registrations')->where('email',$request->email)->update(['password'=>$request->new_password, 'c_password'=>$request->confirm_new_password]);
+        DB::table('student_registrations')->where('email', $request->email)->update(['forgot_pswd_verification_string'=> $forgot_pswd_verification_string]);
 
+        $title="Student Registration";
+        $message = "Registration is successful.";
+        $email = $request->email;
+        $new_password = $request->new_password;
+        $confirm_new_password = $request->confirm_new_password;
 
-        return redirect('/')->with('forgot_password_success', 'Password Changed Successfully!Please login.');
+        $message_data = ["message" => $message, "email"=>$email];
+        Mail::send('forgot_password_mail_confirm', ['title' => $title, 'message_data' => $message_data, 'verification_string'=> $forgot_pswd_verification_string], function ($message) use($message_data) {
+            $message->from('rathodrahul1705@gmail.com');
+            $message->to($message_data['email'])->subject('Forgot Password Confirmation');
+        });
+
+        // return redirect('/login_page')->with('forgot_password_success', 'Password Changed Successfully!Please login.');
+        return redirect('/forgot_password')->with('forgot_password_msg', 'Forgot password confirmation mail has been sent to you, please check your inbox!');
     }
+
+    public function confirm_forgot_password($forgot_pswd_verification_string) {
+        // dd($forgot_pswd_verification_string);
+        $data = StudentRegistration::where('forgot_pswd_verification_string', $forgot_pswd_verification_string)->first();
+        // dd($data);
+        if($data!=NULL || $data!='') {
+            $data->forgot_pswd_verification_string = NULL;
+            $email = DB::table('student_registrations')->where('forgot_pswd_verification_string', $forgot_pswd_verification_string)->value('email');
+            $data->update();
+        }
+        // dd($data->forgot_pswd_verification_string);
+        if($data->forgot_pswd_verification_string == NULL ) {
+            // dd(1);
+            DB::table('student_registrations')->where('email', $email)->update(['password'=>$request->new_password, 'c_password'=>$request->confirm_new_password]);
+        }
+
+        return view('verification_mail');
+    }
+
 
     public function verify_mail($verification_string) {
         // dd($verification_string);
@@ -295,27 +434,39 @@ class details_save extends Controller
         return view('verification_mail');
     }
 
-public function getDownload() {
-        // dd(public_path());
+    public function import_data(){
+        $id =69;
+        $data = DB::table('personal_details')->where('id', $id)->first();
+        dd($data);
+        return view('/customer', compact('data'));
+    }
+    public function export_pdf(){
+        // $obj = DB::table('personal_details')
+        //     ->leftJoin('academic_details', 'personal_details.id', '=', 'academic_details.id')
+        //     ->get();
+        //     echo "<pre>";
+        //     print_r($obj);
 
-        //PDF file is stored under project/public/download/info.pdf
-        // $file= public_path(). "/download/info.pdf";
+        $id =203;
+        $id1 =1;
+        $data = DB::table('personal_details')->where('id', $id)->first();
+        $data1 = DB::table('academic_details')->where('id', $id1)->first();
+        // dd($data->id);
+        $pdf = PDF::loadView('customer', compact('data','data1'));
+        return $pdf->download('addmission.pdf');
 
-        // $headers = array(
-        //           'Content-Type: application/pdf',
-        //         );
-
-        $pdf = PDF::loadView('pdf');
-        return $pdf->download('pdf.pdf');
-        // return Response::download($file, 'rahul.pdf', $headers);
     }
 
-public function func_pdf() {
-        $personal_details = personal_details::all();
-        $pdf = PDF::loadView('pdf', compact('personal_details'));
-        return $pdf->download('pdf.pdf');
 
-}
-
-
+// --------Ajay's Functions-----------
+// public function sports() {
+//     return view('sports.sports');
+// }
+// public function events() {
+//     return view('events.events');
+// }
+// public function cricket_registration() {
+//     return view('sports.cricket_registration');
+// }
+// -------------------
   }

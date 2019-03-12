@@ -3,6 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
+/database/migrations
+.gitignore
 .env
 .phpunit.result.cache
 Homestead.json

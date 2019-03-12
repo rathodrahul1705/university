@@ -47,10 +47,56 @@ Route::post('/forgot_password_save','details_save@forgot_password_save');
 // Route::post('/send','details_save@mail');
 
 Route::get('/verify_mail/{string}', 'details_save@verify_mail');
-
-// Route::get('/getDownload', 'details_save@getDownload');
+Route::get('/confirm_forgot_password/{string}','details_save@confirm_forgot_password');
 Route::get('/pdf', function() {
 	return view('pdf');
 });
 
-Route::get('/func_pdf', 'details_save@func_pdf');
+// // Route::get('/func_pdf', 'details_save@func_pdf');
+// Route::get('/import_data','details_save@import_data');
+// // Route::get('/pdf','CustomerController@export_pdf');
+// Route::get('/pdf','details_save@export_pdf');
+Route::get('/import_data','details_save@import_data');
+Route::get('/pdf','details_save@export_pdf');
+
+
+
+
+// ----Ajay's Routes sports--------------------------------------------
+Route::get('/sports','SportsController@sports');
+Route::get('/events','SportsController@events');
+Route::get('/cricket_registration','SportsController@cricket_registration');
+Route::post('/cricket_details','SportsController@cricket_details');
+Route::get('/verify_mail_cricket/{verification_string}','SportsController@verify_mail_cricket');
+Route::get('/Cricket_pdf_download','SportsController@cricketPdfDownload');
+
+
+// ---------------------------------------------------------------------
+
+
+
+// -------------------football routs------------------------------------
+Route::post('/football_details','SportsController@football_details');
+Route::get('/football_registration','SportsController@football_registration');
+Route::get('/verify_mail_football/{verification_string}','SportsController@verify_mail_football');
+Route::get('/football_pdf_download','SportsController@footballPdfDownload');
+// Route::get('/football_pdf_download','SportsController@pubgPdfDownload');
+// -------------------football routs ends---------------
+
+
+
+// -------------------pubg routs ---------------
+Route::get('/PUBG_registration','SportsController@PUBG_registration');
+Route::post('/pubg_details','SportsController@pubg_details');
+Route::get('/verify_mail_pubg/{verification_string}','SportsController@verify_mail_pubg');
+Route::get('/pubg_pdf_download','SportsController@pubgPdfDownload');
+// -------------------pubg routs ends--------------
+
+
+
+// -------------------tennis routs ---------------
+Route::get('/Tennis_registration','SportsController@Tennis_registration');
+Route::post('/tennis_details','SportsController@tennis_details');
+Route::get('/verify_mail_tennis/{verification_string}','SportsController@verify_mail_tennis');
+Route::get('/verify_mail_tennis','SportsController@tennisPdfDownload');
+// -------------------tennis routs end ---------------
