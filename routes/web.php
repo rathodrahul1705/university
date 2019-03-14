@@ -60,6 +60,13 @@ Route::get('/import_data','details_save@import_data');
 Route::get('/pdf','details_save@export_pdf');
 
 
+//////Admin panel//////
+
+Route::get('/admin_page','AdminController@index');
+Route::get('/results','AdminController@uploadResult');
+Route::post('/resultUploadFile','AdminController@resultUploadFile');
+
+
 
 
 // ----Ajay's Routes sports--------------------------------------------

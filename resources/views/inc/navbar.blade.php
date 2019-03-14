@@ -69,6 +69,7 @@
      <li><a href="{{url('/events')}}">Events</a></li>
  
     <li><a href="{{url('/contact_page')}}">Contact us</a></li>
+    <li><a href="{{url('/admin_page')}}">Admin</a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
       <li><a href="{{url('/register')}}"><span class="glyphicon glyphicon-user" title="sign up"></span> Sign Up</a></li>
